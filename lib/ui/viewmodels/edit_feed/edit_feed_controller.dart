@@ -16,7 +16,7 @@ class EditFeedCntroller extends GetxController {
     openType.value = feed.openType;
     titleController.text = feed.title;
     categoryController.text = feed.folder.value?.name ?? '';
-    feed = feed;
+    this.feed = feed;
   }
 
   // 更新 fullText
