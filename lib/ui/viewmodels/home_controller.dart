@@ -6,6 +6,7 @@ import 'package:meread/helpers/post_helper.dart';
 import 'package:meread/models/feed.dart';
 import 'package:meread/models/folder.dart';
 import 'package:meread/models/post.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class HomeController extends GetxController {
   // 订阅源分类列表
@@ -90,6 +91,29 @@ class HomeController extends GetxController {
     onlyFavorite.value = false;
     appBarTitle.value = 'MeRead'.tr;
     Get.back();
+  }
+
+  Future<void> openPost(int index) async {
+    final post = postList[index];
+    final feed = post.feed.value!;
+    final openType = feed.openType;
+    if (openType == 1) {
+      await launchUrlString(
+        post.link,
+        mode: LaunchMode.inAppBrowserView,
+      );
+      post.read = true;
+      IsarHelper.putPost(post);
+    } else if (openType == 2) {
+      await launchUrlString(
+        post.link,
+        mode: LaunchMode.externalApplication,
+      );
+      post.read = true;
+      IsarHelper.putPost(post);
+    } else {
+      await Get.toNamed('/post', arguments: post)!;
+    }
   }
 
   // 定位到指定分类

@@ -153,8 +153,7 @@ class _HomeViewState extends State<HomeView> {
                   ],
                   child: InkWell(
                     onTap: () {
-                      Get.toNamed('/post', arguments: c.postList[index])!
-                          .then((_) {
+                      c.openPost(index).then((_) {
                         c.getPosts();
                       });
                     },
