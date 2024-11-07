@@ -21,6 +21,8 @@ class HomeController extends GetxController {
   RxBool onlyFavorite = false.obs;
   // AppBar 标题
   RxString appBarTitle = 'MeRead'.tr.obs;
+  final isMobile = true.obs;
+  final useDrawer = true.obs;
 
   @override
   void onInit() {
