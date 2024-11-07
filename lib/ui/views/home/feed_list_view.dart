@@ -34,29 +34,33 @@ class FeedListView extends StatelessWidget {
             child: Column(
               children: [
                 for (Feed feed in c.feeds)
-                  ListTile(
-                    dense: true,
-                    title: Text(
-                      feed.title,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    trailing:
-                        Text(feed.post.where((p) => !p.read).length.toString()),
-                    tileColor: Theme.of(context)
-                        .colorScheme
-                        .secondaryContainer
-                        .withAlpha(80),
-                    shape: RoundedRectangleBorder(
+                  InkWell(
+                    onSecondaryTapUp: (details) {
+                      _showMenu(context, feed, details.globalPosition);
+                    },
+                    onTap: () => c.focusFeed(feed),
+                    onLongPress: () => c.toEditFeed(feed),
+                    customBorder: RoundedRectangleBorder(
                       borderRadius: BorderRadius.vertical(
                         top: Radius.circular(feed == c.feeds.first ? 24 : 0),
                         bottom: Radius.circular(feed == c.feeds.last ? 24 : 0),
                       ),
                     ),
-                    onTap: () {
-                      c.focusFeed(feed);
-                    },
-                    onLongPress: () => c.toEditFeed(feed),
+                    child: ListTile(
+                      dense: true,
+                      title: Text(
+                        feed.title,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      trailing: Text(
+                          feed.post.where((p) => !p.read).length.toString()),
+                      tileColor: Theme.of(context)
+                          .colorScheme
+                          .secondaryContainer
+                          .withAlpha(80),
+                      mouseCursor: SystemMouseCursors.click,
+                    ),
                   ),
               ],
             ),
@@ -64,5 +68,38 @@ class FeedListView extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void _showMenu(BuildContext context, Feed feed, Offset position) {
+    final overlay = Overlay.of(context).context.findRenderObject() as RenderBox;
+
+    showMenu(
+      context: context,
+      position:
+          RelativeRect.fromSize(position & Size(48.0, 48.0), overlay.size),
+      items: [
+        PopupMenuItem(
+          value: 1,
+          child: Text('refresh'.tr),
+        ),
+        PopupMenuItem(
+          value: 2,
+          child: Text('editFeed'.tr),
+        ),
+        PopupMenuItem(
+          value: 3,
+          child: Text('markAllAsRead'.tr),
+        ),
+      ],
+    ).then((value) {
+      if (value == null) return;
+      if (value == 1) {
+        c.refreshFeed(feed);
+      } else if (value == 2) {
+        c.toEditFeed(feed);
+      } else if (value == 3) {
+        c.markFeedRead(feed);
+      }
+    });
   }
 }

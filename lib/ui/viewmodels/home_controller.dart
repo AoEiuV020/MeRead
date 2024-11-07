@@ -85,6 +85,26 @@ class HomeController extends GetxController {
     }
   }
 
+  Future<void> refreshFeed(Feed feed) async {
+    List<int> result = await PostHelper.reslovePosts([feed]);
+    getPosts();
+    if (result[1] > 0) {
+      Get.snackbar(
+        'refreshError'.tr,
+        'refreshErrorInfo'.trParams({'count': result[1].toString()}),
+        snackPosition: SnackPosition.BOTTOM,
+        margin: const EdgeInsets.all(12),
+      );
+    } else {
+      Get.snackbar(
+        'refreshSuccess'.tr,
+        'refreshSuccessInfo'.trParams({'count': result[0].toString()}),
+        snackPosition: SnackPosition.BOTTOM,
+        margin: const EdgeInsets.all(12),
+      );
+    }
+  }
+
   // 定位到全部订阅源
   void focusAllFeeds() {
     feeds.value = IsarHelper.getFeeds();
@@ -178,6 +198,15 @@ class HomeController extends GetxController {
 
   // 全标已读
   void markAllRead() {
+    for (final Post post in postList) {
+      post.read = true;
+    }
+    IsarHelper.putPosts(postList);
+    getPosts();
+  }
+
+  void markFeedRead(Feed feed) {
+    final postList = feed.post.toList();
     for (final Post post in postList) {
       post.read = true;
     }

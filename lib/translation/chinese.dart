@@ -12,6 +12,7 @@ const Map<String, String> chinese = {
   'addFeed': '添加订阅',
   'moreSettings': '更多设置',
   'allFeeds': '全部订阅',
+  'refresh': '刷新',
   'refreshSuccess': '刷新成功',
   'refreshSuccessInfo': '共刷新 @count 个订阅源',
   'refreshError': '刷新失败',
