@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_swipe_action_cell/flutter_swipe_action_cell.dart';
 import 'package:get/get.dart';
-import 'package:meread/helpers/isar_helper.dart';
 import 'package:meread/helpers/prefs_helper.dart';
-import 'package:meread/models/feed.dart';
-import 'package:meread/models/post.dart';
 import 'package:meread/ui/viewmodels/home_controller.dart';
 import 'package:meread/ui/views/home/feed_list_view.dart';
 import 'package:meread/ui/views/home/post_list_app_bar.dart';
 import 'package:meread/ui/views/home/post_list_view.dart';
-import 'package:meread/ui/widgets/post_card.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});

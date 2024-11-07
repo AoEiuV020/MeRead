@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:meread/models/feed.dart';
 import 'package:meread/ui/viewmodels/home_controller.dart';
 
 class PostListAppBar {
