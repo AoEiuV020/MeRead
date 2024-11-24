@@ -6,7 +6,6 @@ import 'package:meread/models/post.dart';
 import 'package:meread/ui/viewmodels/home_controller.dart';
 import 'package:meread/ui/widgets/post_card.dart';
 
-
 class PostListView extends StatelessWidget {
   const PostListView({
     super.key,
@@ -33,14 +32,11 @@ class PostListView extends StatelessWidget {
                   height: 50,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(25),
-                    color:
-                        Theme.of(context).colorScheme.secondaryContainer,
+                    color: Theme.of(context).colorScheme.secondaryContainer,
                   ),
                   child: Icon(
                     Icons.done_outline_rounded,
-                    color: Theme.of(context)
-                        .colorScheme
-                        .onSecondaryContainer,
+                    color: Theme.of(context).colorScheme.onSecondaryContainer,
                   ),
                 ),
                 onTap: (handler) async {
